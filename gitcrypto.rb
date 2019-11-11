@@ -273,6 +273,8 @@ RESTORE_HEAD_HASH="$(git rev-parse --verify HEAD)"
       fn = nil;
       
       while (File.exists?((fn = "./.gitcrypto/tmp/bundle/#{i}.bundle")))
+        $stderr.puts("i=#{i}");
+        
         payload = IO.read(fn);
         
         b = drygest(payload);

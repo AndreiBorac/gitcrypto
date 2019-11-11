@@ -306,7 +306,7 @@ target preserve
     
     phrase = pinentry;
     
-    a = drygest(phrase);
+    a = kdf(phrase);
     
     1.times{
       i = 1000000000;

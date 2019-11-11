@@ -44,3 +44,5 @@ That last command (the `git checkout ...`) is very important. It is required to 
 * `gitcrypto` uses Ruby's OpenSSL's `aes-256-ctr` cipher for bulk encryption.
 * `gitcrypto` uses `pinentry-gnome3` to read the passphrase, which grabs the keyboard globally.
 * `gitcrypto` does not lock memory; maybe it should; for now, simply do not use swap.
+* `gitcrypto backup` always backs up only the current branch without saving its name.
+* `gitcrypto rescue` always creates a branch called `master`, regardless what the saved branch was.

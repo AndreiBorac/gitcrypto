@@ -28,7 +28,7 @@ Now we're ready to encrypt:
 
 About 3 minutes later, you should have the backups in `./.gitcrypto/tmp/export`. From there you could use `rsync` to transfer them incrementally to a remote host, but that is beyond the scope of the tour. Note that `gitcrypto` is deterministic - if you unmount `./.gitcrypto/tmp` (it's a `tmpfs`), losing contents, and run `gitcrypto.rb backup` again, you should get exactly the same contents in the "export" directory. In fact, you will get exactly the same contents in the "export" directory if you restart from the `keygen` step - even the key derivation is deterministic.
 
-Now let's pretend we lost our git repository, and we want `gitcrypto` to recover it based on the "export" directory we just created:
+Now let's pretend we lost our git repository, and we want `gitcrypto` to recover it based on the "export" directory we just created. Once again, you will be prompted for the passphrase:
 
 ```
 mv ./.git ./.git0

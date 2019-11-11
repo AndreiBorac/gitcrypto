@@ -2,7 +2,7 @@
 
 Incremental, encrypted backups for git.
 
-# tour
+# Tour / Quick Start
 
 Let's start off with a quick tour demonstrating how `gitcrypto` works. First, let's make a new temporary directory and load up the gitcrypto project as well as a medium-sized git repository called `toybox`, that we will attempt to encrypt using `gitcrypto`.  While `gitcrypto.rb` can be installed locally, in this tutorial we will only run it from the cloned repository.
 
@@ -26,7 +26,7 @@ Now we're ready to encrypt:
 ./../gitcrypto/gitcrypto.rb backup
 ```
 
-About 3 minutes later, you should have the backups in `./.gitcrypto/tmp/export`. From there you could use `rsync` to transfer them incrementally to a remote host, but that is beyond the scope of the tour. Note that `gitcrypto` is deterministic - if you unmount `./.gitcrypto/tmp` (it's a `tmpfs`), losing contents, and run `gitcrypto.rb backup` again, you should get exactly the same contents in the "export" directory. In fact, you will get exactly the same contents in the "export" directory if you restart from the `keygen` step - even the key derivation is deterministic.
+About 3 minutes later, you should have the backups in `./.gitcrypto/tmp/export`. From there you could use `rsync` to transfer them incrementally to a remote host, but that is beyond the scope of the tour. Note that `gitcrypto` is deterministic - if you unmount `./.gitcrypto/tmp` (it's a `tmpfs`), losing contents, and run `gitcrypto.rb backup` again, you should get exactly the same contents in the "export" directory. In fact, you will get exactly the same contents in the "export" directory if you restart from the `keygen` step - even the key derivation is deterministic (you must, of course, use the same passphrase to get the same contents).
 
 Now let's pretend we lost our git repository, and we want `gitcrypto` to recover it based on the "export" directory we just created. Once again, you will be prompted for the passphrase:
 
@@ -37,3 +37,10 @@ git checkout HEAD -- .
 ```
 
 That last command (the `git checkout ...`) is very important. It is required to bring `git` up-to-date from an empty repository to the newly added decrypted commits.
+
+# Crypto and Known Nags
+
+* `gitcrypto` uses Diffie-Hellman key exchange protocol in a standardized 8192-bit long safe prime field.
+* `gitcrypto` uses Ruby's OpenSSL's `aes-256-ctr` cipher for bulk encryption.
+* `gitcrypto` uses `pinentry-gnome3` to read the passphrase, which grabs the keyboard globally.
+* `gitcrypto` does not lock memory; maybe it should; for now, simply do not use swap.
